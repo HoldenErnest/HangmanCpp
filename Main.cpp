@@ -10,18 +10,28 @@ using namespace std;
 
 const int allWordsLen = 110;
 const string allWords[] = {
-  "cheese","labor","fill","sound","pair","fun","fight","ago","sets","onlinetools",
-"frighten","these","share","correct","electric","complete","plenty","character","negative","author",
-"income","former","saved","typical","buried","family","widely","having","stream","lungs",
-"progress","explanation","let","customs","suddenly","finally","old","again","pipe","does",
-"hunt","why","glass","kill","aid","swept","mood","heard","interior","everywhere",
-"grade","appearance","excitement","aid","scientist","solve","rhyme","above","tie","addition",
-"anywhere","shoulder","hole","will","inside","farmer","fighting","electricity","till","up",
-"leg","obtain","wheat","neighbor","inside","else","crew","empty","slight","numeral",
-"pen","tonight","dress","blue","call","thick","mind","brush","bent","education",
-"rubber","attempt","song","principal","function","steady","impossible","final","represent","history",
-"elephant","long","saw","smallest","saw","pack","definition","kids","similar","slipped"
-};
+    "cheese",   "labor",       "fill",        "sound",     "pair",
+    "fun",      "fight",       "ago",         "sets",      "online",
+    "frighten", "these",       "share",       "correct",   "electric",
+    "complete", "plenty",      "character",   "negative",  "author",
+    "income",   "former",      "saved",       "typical",   "buried",
+    "family",   "widely",      "having",      "stream",    "lungs",
+    "progress", "explanation", "let",         "customs",   "suddenly",
+    "finally",  "old",         "again",       "pipe",      "does",
+    "hunt",     "why",         "glass",       "kill",      "aid",
+    "swept",    "mood",        "heard",       "interior",  "everywhere",
+    "grade",    "appearance",  "excitement",  "addition",  "scientist",
+    "solve",    "rhyme",       "above",       "tie",       "addition",
+    "anywhere", "shoulder",    "hole",        "will",      "inside",
+    "farmer",   "fighting",    "electricity", "till",      "up",
+    "leg",      "obtain",      "wheat",       "neighbor",  "inside",
+    "else",     "crew",        "empty",       "slight",    "numeral",
+    "pen",      "tonight",     "dress",       "blue",      "call",
+    "thick",    "mind",        "brush",       "bent",      "education",
+    "rubber",   "attempt",     "song",        "principal", "function",
+    "steady",   "impossible",  "final",       "represent", "history",
+    "elephant", "long",        "sight",       "smallest",  "saw",
+    "pack",     "definition",  "kids",        "similar",   "slipped"};
 
 const int numLetters = 26;
 const int totalAttempts = 8; // up this number if youre bad
@@ -44,12 +54,13 @@ void takeGuess(char guess) {
       return;
     }
   }
-  for (int i = 0; i < secretWord.length();
-       i++) { // fill in the correct characters
-    if (guess == secretWord[i])
+  for (int i = 0; i < secretWord.length(); i++) {
+    // fill in the correct characters
+    if (guess == secretWord[i]) { // the guess was correct
       guessedWord[i] = guess;
+    }
   }
-  guesses[attemptNum] = guess;
+  guesses[attemptNum] = guess; // record the guess
   attemptNum++;
 }
 void printGuessed() { // print all your guessed letters
@@ -84,18 +95,21 @@ int main() {
     for (attemptNum = 0; attemptNum < totalAttempts;) {
       // take your guesses
       printGuessed();
-      cout << "[" << attemptNum+1 << "/" << totalAttempts <<"]Enter your guess: ";
+      cout << "[" << attemptNum + 1 << "/" << totalAttempts
+           << "]Enter your guess: ";
       cin >> theGuess;
       if (theGuess.length() == 1) // if you guess a single char
         takeGuess(theGuess.c_str()[0]);
-      if (takeGuess(theGuess)) {
+      else if (takeGuess(theGuess)) {
         cout << "Nice! You win! The word was: \"" << secretWord << "\"" << endl;
         break;
       }
     }
     if (attemptNum == totalAttempts) {
       printGuessed();
-      cout << endl << "You lost, the word was \"" << secretWord << "\". Maybe next time." << endl;
+      cout << endl
+           << "You lost, the word was \"" << secretWord
+           << "\". Maybe next time." << endl;
     }
 
     cout << endl << "Do you want to play agian?(y/n) ";
